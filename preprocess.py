@@ -29,7 +29,7 @@ class TextParser():
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.seq_length = seq_length
-        self.input_file = os.path.join(data_dir, "lyrics.txt")
+        self.input_file = os.path.join(data_dir, "new.txt")
         self.vocab_file = os.path.join(data_dir, "vocab.pkl")
         self.context_file = os.path.join(data_dir, "context.npy")
 
@@ -47,7 +47,7 @@ class TextParser():
 	'''
         with codecs.open(self.input_file, "r",encoding='utf-8') as f:
             data = f.read()
-
+	print data
         wordCounts = collections.Counter(data)
         self.vocab_list = [x[0] for x in wordCounts.most_common()]
         self.vocab_size = len(self.vocab_list)
@@ -55,7 +55,6 @@ class TextParser():
         with codecs.open(self.vocab_file, 'wb',encoding='utf-8') as f:
             cPickle.dump(self.vocab_list, f)
         self.context = np.array(list(map(self.vocab_dict.get, data)))
-	print self.context
         np.save(self.context_file, self.context)
 
 
@@ -83,9 +82,6 @@ class TextParser():
         self.x_batches = np.split(xdata.reshape(self.batch_size, -1), self.num_batches, 1)
         self.y_batches = np.split(ydata.reshape(self.batch_size, -1), self.num_batches, 1)
         self.pointer = 0
-
-    def reset_batch(self):
-	self.pointer = 0
 
     def next_batch(self):
 	''' pointer for outputing mini-batches when training

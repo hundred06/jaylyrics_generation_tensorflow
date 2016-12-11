@@ -33,7 +33,7 @@ class Trainer():
     def __init__(self):
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--data_dir', default='./data/',
+        parser.add_argument('--data_dir', default='./data/luxun/',
                        help='set the data directory which contains input.txt')
 
         parser.add_argument('--save_dir', default='./save/',
@@ -45,10 +45,10 @@ class Trainer():
         parser.add_argument('--rnn_size', type=int, default=128,
                        help='set size of RNN hidden state')
 
-        parser.add_argument('--embedding_size', type=int, default=100,
+        parser.add_argument('--embedding_size', type=int, default=128,
                        help='set size of word embedding')
 
-        parser.add_argument('--num_layers', type=int, default=1,
+        parser.add_argument('--num_layers', type=int, default=2,
                        help='set number of layers in the RNN')
 
         parser.add_argument('--model', default='seq2seq_rnn',
@@ -63,7 +63,7 @@ class Trainer():
         parser.add_argument('--batch_size', type=int, default=64,
                        help='set minibatch size')
 
-        parser.add_argument('--seq_length', type=int, default=8,
+        parser.add_argument('--seq_length', type=int, default=32,
                        help='set RNN sequence length')
 
         parser.add_argument('--num_epochs', type=int, default=10000,
@@ -81,7 +81,7 @@ class Trainer():
         parser.add_argument('--decay_rate', type=float, default=0.98,
                        help='set decay rate for rmsprop')                       
 
-        parser.add_argument('--keep', type=bool, default=False,
+        parser.add_argument('--keep', type=bool, default=True,
 		       help='init from trained model')
 
         args = parser.parse_args()

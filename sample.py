@@ -8,6 +8,7 @@ import argparse
 import time
 import os
 from six.moves import cPickle
+import codecs
 
 from preprocess import TextParser
 from seq2seq_rnn import Model
@@ -17,9 +18,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--save_dir', type=str, default='save',
                        help='model directory to store checkpointed models')
-    parser.add_argument('-n', type=int, default=200,
+    parser.add_argument('-n', type=int, default=400,
                        help='number of words to sample')
-    parser.add_argument('--start', default=u'从前',
+    parser.add_argument('--start', default=u'如果',
                        help='prime text')
     parser.add_argument('--sample', type=str, default='weighted',
                        help='three choices:argmax,weighted,combined')
@@ -43,7 +44,10 @@ def sample(args):
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
 	    # sample the new sequence word by word
-            print(model.sample(sess, words, vocab, args.n, args.start, args.sample))
+            literature = model.sample(sess, words, vocab, args.n, args.start, args.sample)
+    with codecs.open('result/sequence.txt','a','utf-8') as f:
+        f.write(literature+'\n\n')
+    print(literature)
 
 if __name__ == '__main__':
     main()
