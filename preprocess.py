@@ -33,12 +33,18 @@ class TextParser():
         self.vocab_file = os.path.join(data_dir, "vocab.pkl")
         self.context_file = os.path.join(data_dir, "context.npy")
 
+	'''
         if not (os.path.exists(self.vocab_file) and os.path.exists(self.context_file)):
             print("building dataset...")
             self.build_dataset()
         else:
             print("loading dataset...")
             self.load_dataset()
+	'''
+        print("building dataset...")
+        self.build_dataset()
+        print("loading dataset...")
+        self.load_dataset()
         self.init_batches()
 
     def build_dataset(self):
@@ -47,7 +53,7 @@ class TextParser():
 	'''
         with codecs.open(self.input_file, "r",encoding='utf-8') as f:
             data = f.read()
-	print data
+	print data[-100:]
         wordCounts = collections.Counter(data)
         self.vocab_list = [x[0] for x in wordCounts.most_common()]
         self.vocab_size = len(self.vocab_list)
