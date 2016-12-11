@@ -277,6 +277,24 @@ def build_conv_layer(inpt,filter_shape,stride,name=None):
     output = tf.nn.dropout(output,keep_prob=0.6)
     return output
 
+def random_pick(p,word,sampling_type):
+    def weighted_pick(weights):
+        t = np.cumsum(weights)
+        s = np.sum(weights)
+        return(int(np.searchsorted(t, np.random.rand(1)*s)))
+
+    if sampling_type == 'argmax':
+        sample = np.argmax(p)
+    elif sampling_type == 'weighted': 
+        sample = weighted_pick(p)
+    elif sampling_type == 'combined':
+        if word == ' ':
+            sample = weighted_pick(p)
+        else:
+    	    sample = np.argmax(p)
+    return sample
+    
+
 # test code
 if __name__=='__main__':
     for (mfcc,label) in list_dirs('/home/pony/github/data/label/*/','/home/pony/github/data/mfcc/*/'):

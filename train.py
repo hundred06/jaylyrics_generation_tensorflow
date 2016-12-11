@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+# -*-  coding:utf-8 -*-
 ''' model for automatic speech recognition implemented in Tensorflow
 author:
 
@@ -28,12 +28,13 @@ from six.moves import cPickle
 from preprocess import TextParser
 from seq2seq_rnn import Model as Model_rnn
 from utils import count_params
+from utils import logging
 
 class Trainer():
     def __init__(self):
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--data_dir', default='./test/',
+        parser.add_argument('--data_dir', default='./data/',
                        help='set the data directory which contains input.txt')
 
         parser.add_argument('--save_dir', default='./save/',
@@ -45,6 +46,9 @@ class Trainer():
         parser.add_argument('--rnn_size', type=int, default=128,
                        help='set size of RNN hidden state')
 
+        parser.add_argument('--embedding_size', type=int, default=100,
+                       help='set size of word embedding')
+
         parser.add_argument('--num_layers', type=int, default=2,
                        help='set number of layers in the RNN')
 
@@ -54,25 +58,28 @@ class Trainer():
         parser.add_argument('--rnncell', default='lstm',
                        help='set the cell of rnn, eg. rnn, gru, or lstm')
 
-        parser.add_argument('--batch_size', type=int, default=64,
+        parser.add_argument('--attention', type=bool, default=False,
+                       help='set attention mode or not')
+
+        parser.add_argument('--batch_size', type=int, default=32,
                        help='set minibatch size')
 
-        parser.add_argument('--seq_length', type=int, default=8,
+        parser.add_argument('--seq_length', type=int, default=16,
                        help='set RNN sequence length')
 
-        parser.add_argument('--num_epochs', type=int, default=3000,
+        parser.add_argument('--num_epochs', type=int, default=10000,
                        help='set number of epochs')
 
         parser.add_argument('--save_every', type=int, default=1000,
                        help='set save frequency while training')
 
-        parser.add_argument('--grad_clip', type=float, default=50.,
+        parser.add_argument('--grad_clip', type=float, default=20.,
                        help='set clip gradients when back propagation')
 
-        parser.add_argument('--learning_rate', type=float, default=0.002,
+        parser.add_argument('--learning_rate', type=float, default=0.001,
                        help='set learning rate')
 
-        parser.add_argument('--decay_rate', type=float, default=0.97,
+        parser.add_argument('--decay_rate', type=float, default=0.98,
                        help='set decay rate for rmsprop')                       
 
         parser.add_argument('--keep', type=bool, default=False,
@@ -126,13 +133,14 @@ class Trainer():
 
             for e in range(args.num_epochs):
                 start = time.time()
-                sess.run(tf.assign(model.lr, args.learning_rate * (args.decay_rate ** e)))
-                text_parser.reset_batch()
+                #sess.run(tf.assign(model.lr, args.learning_rate * (args.decay_rate ** e)))
+                sess.run(tf.assign(model.lr, args.learning_rate))
 	        model.initial_state = tf.convert_to_tensor(model.initial_state) 
                 state = model.initial_state.eval()
 		total_loss = []
                 for b in range(text_parser.num_batches):
                     x, y = text_parser.next_batch()
+		    print('flag')
                     feed = {model.input_data: x, model.targets: y, model.initial_state: state}
                     train_loss, state, _ = sess.run([model.cost, model.final_state, model.train_op], feed)
 		    total_loss.append(train_loss)
@@ -148,6 +156,8 @@ class Trainer():
 		delta_time = end - start
 		ave_loss = np.array(total_loss).mean()
 		logging(model,ave_loss,e,delta_time,mode='train')
+		if ave_loss < 0.5:
+		    break
 
 if __name__ == '__main__':
     trainer = Trainer()

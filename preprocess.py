@@ -23,7 +23,7 @@ import collections
 from six.moves import cPickle
 
 class TextParser():
-    def __init__(self, data_dir='./test/', batch_size=8, seq_length=10):
+    def __init__(self, data_dir='./data/', batch_size=8, seq_length=10):
 	''' Initialize the basic directory, batch_size and sequence length
 	'''
         self.data_dir = data_dir
@@ -49,12 +49,13 @@ class TextParser():
             data = f.read()
 
         wordCounts = collections.Counter(data)
-        vocab_list = [x[0] for x in wordCounts.most_common()]
-        self.vocab_size = len(vocab_list)
-        vocab_dict = {x: i for i, x in enumerate(vocab_list)}
+        self.vocab_list = [x[0] for x in wordCounts.most_common()]
+        self.vocab_size = len(self.vocab_list)
+        self.vocab_dict = {x: i for i, x in enumerate(self.vocab_list)}
         with codecs.open(self.vocab_file, 'wb',encoding='utf-8') as f:
-            cPickle.dump(vocab_list, f)
-        self.context = np.array(list(map(vocab_dict.get, data)))
+            cPickle.dump(self.vocab_list, f)
+        self.context = np.array(list(map(self.vocab_dict.get, data)))
+	print self.context
         np.save(self.context_file, self.context)
 
 
@@ -96,3 +97,4 @@ class TextParser():
 # test code
 if __name__ == '__main__':
     t = TextParser()
+    t.build_dataset()

@@ -9,8 +9,8 @@ import time
 import os
 from six.moves import cPickle
 
-from utils import TextLoader
-from model import Model
+from preprocess import TextParser
+from seq2seq_rnn import Model
 
 def main():
     # get arguments
@@ -19,10 +19,10 @@ def main():
                        help='model directory to store checkpointed models')
     parser.add_argument('-n', type=int, default=200,
                        help='number of words to sample')
-    parser.add_argument('--prime', default=u'故事',
+    parser.add_argument('--start', default=u'从前',
                        help='prime text')
-    parser.add_argument('--sample', type=int, default=1,
-                       help='0 to use max at each timestep, 1 to sample at each timestep, 2 to sample on spaces')
+    parser.add_argument('--sample', type=str, default='weighted',
+                       help='three choices:argmax,weighted,combined')
 
     args = parser.parse_args()
     sample(args)
@@ -43,7 +43,7 @@ def sample(args):
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
 	    # sample the new sequence word by word
-            print(model.sample(sess, words, vocab, args.n, args.prime, args.sample))
+            print(model.sample(sess, words, vocab, args.n, args.start, args.sample))
 
 if __name__ == '__main__':
     main()
