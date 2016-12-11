@@ -16,19 +16,18 @@ author:
 date:2016-12-01
 '''
 
-from __future__ import print_function
 import numpy as np
 import tensorflow as tf
-
-import argparse
-import time
-import os
-from six.moves import cPickle
 
 from preprocess import TextParser
 from seq2seq_rnn import Model as Model_rnn
 from utils import count_params
 from utils import logging
+
+import argparse
+import time
+import os
+from six.moves import cPickle
 
 class Trainer():
     def __init__(self):
@@ -49,7 +48,7 @@ class Trainer():
         parser.add_argument('--embedding_size', type=int, default=100,
                        help='set size of word embedding')
 
-        parser.add_argument('--num_layers', type=int, default=2,
+        parser.add_argument('--num_layers', type=int, default=1,
                        help='set number of layers in the RNN')
 
         parser.add_argument('--model', default='seq2seq_rnn',
@@ -61,10 +60,10 @@ class Trainer():
         parser.add_argument('--attention', type=bool, default=False,
                        help='set attention mode or not')
 
-        parser.add_argument('--batch_size', type=int, default=32,
+        parser.add_argument('--batch_size', type=int, default=64,
                        help='set minibatch size')
 
-        parser.add_argument('--seq_length', type=int, default=16,
+        parser.add_argument('--seq_length', type=int, default=8,
                        help='set RNN sequence length')
 
         parser.add_argument('--num_epochs', type=int, default=10000,

@@ -92,6 +92,8 @@ class TextParser():
 	'''
         x, y = self.x_batches[self.pointer], self.y_batches[self.pointer]
         self.pointer += 1
+	if self.pointer == self.num_batches:
+	    self.pointer = 0
         return x, y
 
 # test code

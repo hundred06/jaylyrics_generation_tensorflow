@@ -1,0 +1,78 @@
+12:15:00 12/11/16 CST
+Epoch:1 train error rate:6.60732
+Epoch:1 train time:2.12982487679 s
+12:15:01 12/11/16 CST
+Epoch:2 train error rate:5.93506
+Epoch:2 train time:0.82984995842 s
+12:15:01 12/11/16 CST
+Epoch:3 train error rate:5.76626
+Epoch:3 train time:0.811540126801 s
+12:15:02 12/11/16 CST
+Epoch:4 train error rate:5.65444
+Epoch:4 train time:0.826861143112 s
+12:15:03 12/11/16 CST
+Epoch:5 train error rate:5.5583
+Epoch:5 train time:0.839987039566 s
+12:15:04 12/11/16 CST
+Epoch:6 train error rate:5.45518
+Epoch:6 train time:0.849097013474 s
+12:15:05 12/11/16 CST
+Epoch:7 train error rate:5.34246
+Epoch:7 train time:0.84016084671 s
+12:15:06 12/11/16 CST
+Epoch:8 train error rate:5.22543
+Epoch:8 train time:0.831427097321 s
+12:15:07 12/11/16 CST
+Epoch:9 train error rate:5.10846
+Epoch:9 train time:1.46742606163 s
+12:15:08 12/11/16 CST
+Epoch:10 train error rate:4.99255
+Epoch:10 train time:0.828900814056 s
+12:15:09 12/11/16 CST
+Epoch:11 train error rate:4.87793
+Epoch:11 train time:0.840569019318 s
+12:15:10 12/11/16 CST
+Epoch:12 train error rate:4.76579
+Epoch:12 train time:0.841411113739 s
+12:15:10 12/11/16 CST
+Epoch:13 train error rate:4.65649
+Epoch:13 train time:0.801544904709 s
+12:15:11 12/11/16 CST
+Epoch:14 train error rate:4.55047
+Epoch:14 train time:0.801514148712 s
+12:15:12 12/11/16 CST
+Epoch:15 train error rate:4.44743
+Epoch:15 train time:0.800997018814 s
+12:15:13 12/11/16 CST
+Epoch:16 train error rate:4.34803
+Epoch:16 train time:0.804931163788 s
+12:15:14 12/11/16 CST
+Epoch:17 train error rate:4.25206
+Epoch:17 train time:0.803515911102 s
+12:15:15 12/11/16 CST
+Epoch:18 train error rate:4.15969
+Epoch:18 train time:1.36663985252 s
+12:15:16 12/11/16 CST
+Epoch:19 train error rate:4.0705
+Epoch:19 train time:0.817614793777 s
+12:15:17 12/11/16 CST
+Epoch:20 train error rate:3.98455
+Epoch:20 train time:0.806113958359 s
+12:15:17 12/11/16 CST
+Epoch:21 train error rate:3.90143
+Epoch:21 train time:0.805557966232 s
+12:15:18 12/11/16 CST
+Epoch:22 train error rate:3.82114
+Epoch:22 train time:0.802599906921 s
+12:15:19 12/11/16 CST
+Epoch:23 train error rate:3.7432
+Epoch:23 train time:0.80609703064 s
+12:15:20 12/11/16 CST
+Epoch:24 train error rate:3.66807
+Epoch:24 train time:0.808429002762 s
+12:15:21 12/11/16 CST
+Epoch:25 train error rate:3.59511
+Epoch:25 train time:0.800781011581 s
+12:15:21 12/11/16 CST
+Epoch:26 train error rate:3.52452
+Epoch:26 train time:0.815026044846 s
